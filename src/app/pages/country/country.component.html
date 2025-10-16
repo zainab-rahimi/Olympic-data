@@ -1,0 +1,66 @@
+<div class="container-fluid" *ngIf="country$ | async as country">
+  <div class="row justify-content-center">
+ 
+     <h3 class="stat-card-header mb-4">{{country.country}}</h3>
+
+        <div class="stats-container">
+          <div class="stat-card">
+            <span class="stat-card-title">Number of entries: <br></span>
+            <span class="stat-value">{{ country.participations.length }}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card-title">Total number of medals: <br></span>
+            <span class="stat-value">{{ getTotalMedals(country) }}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card-title">Total number of athletes: <br></span>
+            <span class="stat-value">{{ getTotalAthletes(country) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="chart-section">
+        <div class="chart-container" *ngIf="chartData$ | async as chartData">
+          <ngx-charts-line-chart
+            [results]="chartData$ | async"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [legend]="false"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [timeline]="timeline"
+            [autoScale]="autoScale"
+            [scheme]="colorScheme"
+            [curve]="curve"
+            [showGridLines]="showGridLines"
+            [rangeFillOpacity]="rangeFillOpacity"
+            [xAxisTickFormatting]="xAxisTickFormatting">
+          </ngx-charts-line-chart>
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <div class="back-button-container text-center mt-4">
+        <button type="button" class="btn btn-primary" routerLink="/">
+          <i class="fas fa-arrow-left me-2"></i>
+          Back
+        </button>
+      </div>
+    </div>
+
+
+
+<!-- Loading state -->
+<div class="container-fluid" *ngIf="!(country$ | async)">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin fa-3x text-primary"></i>
+        <p class="mt-3">Loading country data...</p>
+      </div>
+    </div>
+  </div>
+</div>

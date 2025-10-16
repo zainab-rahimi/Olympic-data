@@ -1,0 +1,46 @@
+// Import country component styles to reuse
+@import '../country/country.component.scss';
+
+.home-container {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+// Pie chart specific adjustments
+::ng-deep {
+  ngx-charts-pie-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+    .ngx-charts {
+      overflow: visible;
+    }
+    
+    .legend {
+      .legend-labels {
+        .legend-label {
+          font-size: 12px;
+          
+          .legend-label-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+    
+    .pie-chart {
+      .arc {
+        cursor: pointer;
+        transition: opacity 0.2s ease-in-out;
+        
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

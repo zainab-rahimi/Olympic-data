@@ -1,1 +1,172 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Import Bootstrap */
+@import 'bootstrap/scss/bootstrap';
+
+/* Global responsive utilities */
+html, body {
+  height: 100%;
+  font-size: 16px;
+  text-align: center;
+  overflow-y:visible;
+  width: 100%;
+}
+
+/* Responsive font sizes */
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .display-6 {
+    font-size: 2rem !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* Responsive spacing utilities */
+
+
+/* Chart container responsive behavior */
+.chart-container {
+  overflow-x: auto;
+  padding: 1rem 0;
+  width: 100%;
+  overflow: visible
+  !important;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Custom responsive text utilities */
+.fs-6 {
+  font-size: 1rem !important;
+}
+
+.fs-md-5 {
+  @media (min-width: 768px) {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Custom color utilities */
+.bg-custom-light {
+  background-color: #eaf3f4 !important;
+}
+
+.border-custom {
+  border-color: #04828e !important;
+}
+
+.text-custom {
+  color:black ;
+}
+
+
+
+/* Reusable info box styles */
+.info-box {
+  @extend .card;
+  @extend .text-center;
+  @extend .shadow-sm;
+  @extend .border;
+  @extend .border-2;
+  @extend .border-custom;
+  @extend .bg-custom-light;
+  @extend .text-custom;
+}
+
+.info-box-body {
+  @extend .card-body;
+  @extend .py-2;
+}
+
+.info-box-title {
+  @extend .card-title;
+  @extend .mb-1;
+  font-weight: 600;
+}
+
+.info-box-value {
+  @extend .display-6;
+  @extend .mb-0;
+  font-weight: 700;
+}
+
+.stat-card {
+  background-color: #fbfbfb;
+  border: 2px solid #04828e;
+  border-radius: 0.375rem;
+  color:black;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.stat-card-header {
+  background-color: #04828e;
+  border: #04828e 2 px solid;
+  color: white;
+  text-align: center;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 2rem;
+  font: size 36px;;
+
+}
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color:black !important;
+}
+
+
+
+
+/* Responsive adjustments for stat cards */
+@media (max-width: 576px) {
+  .stat-card-value {
+    font-size: 2rem;
+  }
+  
+  .stat-card-title {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    padding: 0.75rem;
+  }
+}
+
+/* Responsive button improvements */
+@media (max-width: 576px) {
+  .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+
