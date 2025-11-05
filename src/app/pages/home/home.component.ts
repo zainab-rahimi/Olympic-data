@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { map, Observable, of, Subject } from 'rxjs';
 import { Olympic } from 'src/app/core/models/olympic.model';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { PieChartData } from 'src/app/core/models/pie-chart-data.model';
+import { PieChartData, PieChartSelectEvent } from 'src/app/core/models/chart.model';
 import { LegendPosition, Color, ScaleType } from '@swimlane/ngx-charts';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-home',
@@ -12,11 +13,12 @@ import { Router } from '@angular/router';
     styleUrls: ['./home.component.scss'],
     standalone: false
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public olympics$: Observable<Olympic[]> = of([]);
   public pieChartData$: Observable<PieChartData[]> = of([]);
   public olympicsData: Olympic[] = [];
   public numberOfJOs$: Observable<number> = of(0);
+  public destroy$ = new Subject<void>();
 
   // Chart configuration
   showLabels: boolean = true;
@@ -37,7 +39,9 @@ export class HomeComponent implements OnInit {
     this.olympics$ = this.olympicService.getOlympics();
     
     // Store olympics data for navigation purposes
-    this.olympics$.subscribe(data => {
+    this.olympics$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
       this.olympicsData = data;
     });
     
@@ -51,7 +55,8 @@ export class HomeComponent implements OnInit {
           });
         });
         return uniqueYears.size;
-      })
+      }),
+      takeUntil(this.destroy$)
     );
     
     // transform the data to pie chart format
@@ -61,16 +66,22 @@ export class HomeComponent implements OnInit {
           name: olympic.country,
           value: olympic.participations.reduce((total, participation) => total + participation.medalsCount, 0)
         }));
-      })
+      }),
+      takeUntil(this.destroy$)
     );
   }
 
-  onPieChartSelect(event: any): void {
+  onPieChartSelect(event: PieChartSelectEvent): void {
     const countryName = event.name;
     const olympic = this.olympicsData.find(o => o.country === countryName);
     
     if (olympic) {
       this.router.navigate([`/country/${olympic.id}`]);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -6,6 +6,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { takeUntil, map, filter, take } from 'rxjs/operators';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { curveLinear } from 'd3-shape';
+import { ChartSeries } from 'src/app/core/models/chart.model';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { curveLinear } from 'd3-shape';
 export class CountryComponent implements OnInit, OnDestroy {
 
   public country$: Observable<Olympic | undefined> = of(undefined);
-  public chartData$: Observable<any[]> = of([]);
+  public chartData$: Observable<ChartSeries[]> = of([]);
   public destroy$ = new Subject<void>();
   
   // Chart configuration
@@ -25,7 +26,7 @@ export class CountryComponent implements OnInit, OnDestroy {
   public yAxisLabel = 'Medals';
   public showXAxisLabel = true;
   public showYAxisLabel = true;
-  public xAxisTickFormatting = (value: any) => value.toString();
+  public xAxisTickFormatting = (value: number) => value.toString();
   public colorScheme: Color = {
     name: 'custom',
     selectable: true,
